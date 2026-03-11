@@ -5,7 +5,8 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/OlegKapustin13041985/qa-automation-ci-cd.git'
+                git branch: 'main', git 'https://github
+                .com/OlegKapustin13041985/qa-automation-ci-cd.git'
             }
         }
 
