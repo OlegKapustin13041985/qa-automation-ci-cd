@@ -11,13 +11,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean compile'
+                bat '"C:\\Program Files\\apache-maven-3.8.7\\bin\\mvn.cmd" clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'mvn test'
+                bat '"C:\\Program Files\\apache-maven-3.8.7\\bin\\mvn.cmd" test'
             }
         }
 
