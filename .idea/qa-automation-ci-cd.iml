@@ -75,5 +75,9 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents.client5:httpclient5:5.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents.core5:httpcore5:5.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents.core5:httpcore5-h2:5.2" level="project" />
+    <orderEntry type="library" name="Maven: io.qameta.allure:allure-testng:2.29.0" level="project" />
+    <orderEntry type="library" name="Maven: io.qameta.allure:allure-java-commons:2.29.0" level="project" />
+    <orderEntry type="library" name="Maven: io.qameta.allure:allure-model:2.29.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: io.qameta.allure:allure-test-filter:2.29.0" level="project" />
   </component>
 </module>
