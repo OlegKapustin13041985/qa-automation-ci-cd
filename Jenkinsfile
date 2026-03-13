@@ -4,20 +4,26 @@ pipeline {
     stages {
 
         stage('Docker Build') {
-                    steps {
-                        bat 'docker build -t qa-automation .'
-                    }
-                }
-
-                stage('Run Tests in Docker') {
-                    steps {
-                        bat 'docker run qa-automation'
-                    }
-                }
-
-        stage('Test') {
             steps {
-                bat '"C:\\Program Files\\apache-maven-3.8.7\\bin\\mvn.cmd" test'
+                bat 'docker build -t qa-automation .'
+            }
+        }
+
+        stage('Parallel Tests') {
+            parallel {
+
+                stage('Chrome Tests') {
+                    steps {
+                        bat 'docker run --rm qa-automation'
+                    }
+                }
+
+                stage('Firefox Tests') {
+                    steps {
+                        bat 'docker run --rm qa-automation'
+                    }
+                }
+
             }
         }
 
@@ -27,7 +33,7 @@ pipeline {
                 jdk: '',
                 results: [[path: 'target/allure-results']]
             }
-            }
+        }
 
     }
 
