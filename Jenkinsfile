@@ -3,17 +3,17 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git(branch: 'main', url: 'https://github.com/OlegKapustin13041985/qa-automation-ci-cd.git')
-            }
-        }
+        stage('Docker Build') {
+                    steps {
+                        bat 'docker build -t qa-automation .'
+                    }
+                }
 
-        stage('Build') {
-            steps {
-                bat '"C:\\Program Files\\apache-maven-3.8.7\\bin\\mvn.cmd" clean compile'
-            }
-        }
+                stage('Run Tests in Docker') {
+                    steps {
+                        bat 'docker run qa-automation'
+                    }
+                }
 
         stage('Test') {
             steps {

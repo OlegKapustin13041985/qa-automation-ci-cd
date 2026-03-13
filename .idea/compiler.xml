@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="qa-automation-ci-cd" target="19" />
+      <module name="qa-automation-ci-cd" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
