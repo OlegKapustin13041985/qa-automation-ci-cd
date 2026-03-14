@@ -41,7 +41,7 @@ pipeline {
           success {
                 bat '''
                 curl -X POST https://api.telegram.org/bot8376273606:AAGsemjjPpiUhK7TiblOVgoKjWVC7hmO5kk/sendMessage ^
-                -d chat_id=8376273606 ^
+                -d chat_id=452639651 ^
                 -d text="✅ Jenkins pipeline SUCCESS"
                 '''
             }
@@ -49,7 +49,7 @@ pipeline {
             failure {
                 bat '''
                 curl -X POST https://api.telegram.org/bot8376273606:AAGsemjjPpiUhK7TiblOVgoKjWVC7hmO5kk/sendMessage ^
-                -d chat_id=8376273606 ^
+                -d chat_id=452639651 ^
                 -d text="❌ Jenkins pipeline FAILED"
                 '''
             }
