@@ -38,8 +38,24 @@ pipeline {
     }
 
     post {
-        always {
-            echo 'Pipeline finished'
-        }
+          success {
+                bat '''
+                curl -X POST https://api.telegram.org/botTOKEN/sendMessage ^
+                -d chat_id=CHATID ^
+                -d text="✅ Jenkins pipeline SUCCESS"
+                '''
+            }
+
+            failure {
+                bat '''
+                curl -X POST https://api.telegram.org/botTOKEN/sendMessage ^
+                -d chat_id=CHATID ^
+                -d text="❌ Jenkins pipeline FAILED"
+                '''
+            }
+
+            always {
+                echo 'Pipeline finished'
+            }
     }
 }
