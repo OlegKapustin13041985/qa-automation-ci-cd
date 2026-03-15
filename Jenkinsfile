@@ -34,12 +34,12 @@ pipeline {
    always {
 
            allure(
-               includeProperties: false,
-               jdk: '',
-               results: [
-                   [path: 'target/chrome/allure-results'],
-                   [path: 'target/firefox/allure-results']
-               ]
+                          includeProperties: false,
+                          jdk: '',
+                          results: [
+                              [path: 'target/chrome/allure-results'],
+                              [path: 'target/firefox/allure-results']
+                          ])
 
            echo 'Pipeline finished'
        }
