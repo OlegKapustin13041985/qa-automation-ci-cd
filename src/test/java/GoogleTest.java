@@ -28,7 +28,7 @@ public class GoogleTest {
         driver.get("https://www.google.com");
 
         try{
-            Assert.assertFalse(driver.getTitle().contains("Google"));
+            Assert.assertTrue(driver.getTitle().contains("Google"));
         } catch(AssertionError e){
             ScreenshotUtil.takeScreenshot(driver);
 
