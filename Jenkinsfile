@@ -21,19 +21,14 @@ pipeline {
 
                 stage('Chrome Tests') {
                     steps {
-                        bat 'docker run --rm ^
-                        -v %cd%/target/chrome:/app/target ^
-                        -v %USERPROFILE%\\.m2:/root/.m2 ^
-                        qa-automation'
+                        bat 'docker run --rm -v %cd%/target/chrome:/app/target -v %USERPROFILE%\\.m2:/root/.m2 qa-automation'
+                            }
                     }
                 }
 
                 stage('Firefox Tests') {
                     steps {
-                       bat 'docker run --rm ^
-                       -v %cd%/target/firefox:/app/target ^
-                       -v %USERPROFILE%\\.m2:/root/.m2 ^
-                       qa-automation'
+                      bat 'docker run --rm -v %cd%/target/firefox:/app/target -v %USERPROFILE%\\.m2:/root/.m2 qa-automation'
                     }
                 }
 
