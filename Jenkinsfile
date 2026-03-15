@@ -1,5 +1,4 @@
 pipeline {
-
     agent any
 
     stages {
@@ -18,20 +17,16 @@ pipeline {
 
         stage('Run Tests') {
             parallel {
-
-                stage('Chrome Tests') {
+                Chrome: {
                     steps {
                         bat 'docker run --rm -v %cd%/target/chrome:/app/target -v %USERPROFILE%\\.m2:/root/.m2 qa-automation'
-                            }
                     }
                 }
-
-                stage('Firefox Tests') {
+                Firefox: {
                     steps {
-                      bat 'docker run --rm -v %cd%/target/firefox:/app/target -v %USERPROFILE%\\.m2:/root/.m2 qa-automation'
+                        bat 'docker run --rm -v %cd%/target/firefox:/app/target -v %USERPROFILE%\\.m2:/root/.m2 qa-automation'
                     }
                 }
-
             }
         }
 
@@ -50,21 +45,12 @@ pipeline {
     }
 
     post {
-
         success {
-            bat '''
-            curl -X POST https://api.telegram.org/botTOKEN/sendMessage ^
-            -d chat_id=CHAT_ID ^
-            -d text="✅ Jenkins pipeline SUCCESS"
-            '''
+            bat 'curl -X POST https://api.telegram.org/botTOKEN/sendMessage -d chat_id=CHAT_ID -d text="✅ Jenkins pipeline SUCCESS"'
         }
 
         failure {
-            bat '''
-            curl -X POST https://api.telegram.org/botTOKEN/sendMessage ^
-            -d chat_id=CHAT_ID ^
-            -d text="❌ Jenkins pipeline FAILED"
-            '''
+            bat 'curl -X POST https://api.telegram.org/botTOKEN/sendMessage -d chat_id=CHAT_ID -d text="❌ Jenkins pipeline FAILED"'
         }
 
         always {
