@@ -1,0 +1,29 @@
+[33m18ac959[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m fixes
+[33mdc3c86e[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m fix Jenkinsfile
+[33m1e1240e[m fixes
+[33m1a32a7d[m fixes
+[33m524d8b6[m fix docker volume and allure
+[33mfe0c415[m add screenshots to allure
+[33mbe32bf9[m test10
+[33ma0f372d[m test9
+[33me5fd21c[m add telegram notice
+[33m26d6f9d[m test_8
+[33mdbeb256[m add docker layer caching
+[33m0b4028a[m add parallel tests
+[33m9801dfa[m test_6
+[33mcfe2641[m test_5
+[33m0b63ae7[m test_4
+[33mab6aebd[m test_2
+[33m8668e41[m test2
+[33mf8a129a[m test
+[33md47ff82[m add docker pepeline
+[33mc305f4e[m add allure reporting_2
+[33m77fbcff[m add allure reporting
+[33ma411a0c[m Jenkinsfile has been changed_3
+[33m13cd9b0[m Jenkinsfile has been changed_3
+[33md34221e[m Jenkinsfile has been changed_2
+[33mce18cda[m Jenkinsfile has been changed
+[33mbe247d6[m add Jenkins pipeline
+[33m880bcb4[m add selenium test framework
+[33mddd5ae7[m initial project structure
+[33m1889832[m Initial commit
