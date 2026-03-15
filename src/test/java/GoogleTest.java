@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import utils.ScreenshotUtil;
 
 public class GoogleTest {
 
@@ -26,7 +27,14 @@ public class GoogleTest {
         WebDriver driver = new ChromeDriver(options);
         driver.get("https://www.google.com");
 
-        Assert.assertTrue(driver.getTitle().contains("Google"));
+        try{
+            Assert.assertFalse(driver.getTitle().contains("Google"));
+        } catch(AssertionError e){
+            ScreenshotUtil.takeScreenshot(driver);
+
+            throw e;
+        }
+
 
         driver.quit();
     }
