@@ -38,9 +38,5 @@ public class GoogleTest {
 
         driver.quit();
     }
-
-    //test
-    //test3
-    //test4
-    //test8
+    
 }
