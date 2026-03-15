@@ -14,13 +14,13 @@ pipeline {
 
                 stage('Chrome Tests') {
                     steps {
-                       bat 'docker run --rm -v %cd%/target/chrome:/app/target qa-automation'
+                        bat 'docker run --rm -v %cd%/target/chrome:/app/target qa-automation'
                     }
                 }
 
                 stage('Firefox Tests') {
                     steps {
-                        bat 'docker run --rm -v %cd%/target/firefox:/app/target qa-automation'
+                         bat 'docker run --rm -v %cd%/target/firefox:/app/target qa-automation'
                     }
                 }
 
@@ -33,9 +33,13 @@ pipeline {
 
    always {
 
-           allure includeProperties: false,
-           jdk: '',
-           results: [[path: 'target/allure-results']]
+           allure(
+               includeProperties: false,
+               jdk: '',
+               results: [
+                   [path: 'target/chrome/allure-results'],
+                   [path: 'target/firefox/allure-results']
+               ]
 
            echo 'Pipeline finished'
        }
