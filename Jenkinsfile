@@ -1,63 +1,79 @@
 pipeline {
+
     agent any
 
     stages {
 
-        stage('Docker Build') {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
             steps {
                 bat 'docker build -t qa-automation .'
             }
         }
 
-        stage('Parallel Tests') {
+        stage('Run Tests') {
             parallel {
 
                 stage('Chrome Tests') {
                     steps {
-                        bat 'docker run --rm -v %cd%/target/chrome:/app/target qa-automation'
+                        bat 'docker run --rm ^
+                        -v %cd%/target/chrome:/app/target ^
+                        -v %USERPROFILE%\\.m2:/root/.m2 ^
+                        qa-automation'
                     }
                 }
 
                 stage('Firefox Tests') {
                     steps {
-                         bat 'docker run --rm -v %cd%/target/firefox:/app/target qa-automation'
+                       bat 'docker run --rm ^
+                       -v %cd%/target/firefox:/app/target ^
+                       -v %USERPROFILE%\\.m2:/root/.m2 ^
+                       qa-automation'
                     }
                 }
 
             }
         }
 
+        stage('Generate Allure Report') {
+            steps {
+                allure(
+                    includeProperties: false,
+                    jdk: '',
+                    results: [
+                        [path: 'target/chrome/allure-results'],
+                        [path: 'target/firefox/allure-results']
+                    ]
+                )
+            }
+        }
     }
 
     post {
 
-   always {
+        success {
+            bat '''
+            curl -X POST https://api.telegram.org/botTOKEN/sendMessage ^
+            -d chat_id=CHAT_ID ^
+            -d text="✅ Jenkins pipeline SUCCESS"
+            '''
+        }
 
-           allure(
-                          includeProperties: false,
-                          jdk: '',
-                          results: [
-                              [path: 'target/chrome/allure-results'],
-                              [path: 'target/firefox/allure-results']
-                          ])
+        failure {
+            bat '''
+            curl -X POST https://api.telegram.org/botTOKEN/sendMessage ^
+            -d chat_id=CHAT_ID ^
+            -d text="❌ Jenkins pipeline FAILED"
+            '''
+        }
 
-           echo 'Pipeline finished'
-       }
-
-       success {
-           bat '''
-           curl -X POST https://api.telegram.org/bot8376273606:AAGsemjjPpiUhK7TiblOVgoKjWVC7hmO5kk/sendMessage ^
-           -d chat_id=452639651 ^
-           -d text="✅ Jenkins pipeline SUCCESS"
-           '''
-       }
-
-       failure {
-           bat '''
-           curl -X POST https://api.telegram.org/bot8376273606:AAGsemjjPpiUhK7TiblOVgoKjWVC7hmO5kk/sendMessage ^
-           -d chat_id=452639651 ^
-           -d text="❌ Jenkins pipeline FAILED"
-           '''
-       }
+        always {
+            echo 'Pipeline finished'
+        }
     }
 }
