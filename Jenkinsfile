@@ -1,3 +1,25 @@
+def notify(status) {
+    def message = """
+${status}
+
+Job: ${env.JOB_NAME}
+Build: #${env.BUILD_NUMBER}
+Status: ${currentBuild.currentResult}
+Duration: ${currentBuild.durationString}
+
+URL: ${env.BUILD_URL}
+"""
+
+    powershell """
+    Invoke-RestMethod -Uri "https://api.telegram.org/bot8376273606:AAGsemjjPpiUhK7TiblOVgoKjWVC7hmO5kk/sendMessage" `
+    -Method Post `
+    -Body @{
+        chat_id="452639651"
+        text="${message}"
+    }
+    """
+}
+
 pipeline {
     agent any
 
@@ -45,19 +67,11 @@ pipeline {
        }
 
        success {
-           bat '''
-           curl -X POST https://api.telegram.org/bot8376273606:AAGsemjjPpiUhK7TiblOVgoKjWVC7hmO5kk/sendMessage ^
-           -d chat_id=452639651 ^
-           -d text="✅ Jenkins pipeline SUCCESS"
-           '''
+           notify("✅ SUCCESS")
        }
 
        failure {
-           bat '''
-           curl -X POST https://api.telegram.org/bot8376273606:AAGsemjjPpiUhK7TiblOVgoKjWVC7hmO5kk/sendMessage ^
-           -d chat_id=452639651 ^
-           -d text="❌ Jenkins pipeline FAILED"
-           '''
+           notify("❌ FAILED")
        }
     }
 }
