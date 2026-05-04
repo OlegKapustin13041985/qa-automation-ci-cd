@@ -11,4 +11,6 @@ public class ScreenshotUtil {
         return ((TakesScreenshot) driver)
                 .getScreenshotAs(OutputType.BYTES);
     }
+
+    #test
 }
